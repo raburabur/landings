@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EliteFood – Discover the best meat</title>
+<meta name="description" content="EliteFood – przetwórstwo surowego mięsa drobiowego i produkcja pieczonych elementów z drobiu. Filet, noga, skrzydło: świeże, mrożone, pieczone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Saira:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c30002;
+    --red-dark: #9e0002;
+    --ink: #1e1e1e;
+    --ink-2: #2a2a2a;
+    --grey-900: #424242;
+    --grey-700: #4f4f4f;
+    --grey-500: #848484;
+    --grey-300: #c9c9c9;
+    --grey-200: #e2e2e2;
+    --grey-100: #efefef;
+    --white: #fff;
+    --frost: #9adeff;
+    --radius: 4px;
+    --wrap: 1200px;
+    --head: "Saira", "Roboto", sans-serif;
+    --body: "Roboto", system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font: 400 16px/1.65 var(--body); color: var(--grey-700); background: var(--grey-100); -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3 { font-family: var(--head); color: var(--ink); margin: 0; line-height: 1.08; letter-spacing: -.01em; }
+  p { margin: 0; }
+  .wrap { width: min(var(--wrap), 100% - 32px); margin-inline: auto; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 12px; font: 600 13px/1 var(--head); letter-spacing: .22em; text-transform: uppercase; color: var(--red); }
+  .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+  .h2 { font-size: clamp(30px, 4vw, 46px); font-weight: 700; text-transform: uppercase; }
+  .h2 em { font-style: normal; color: var(--red); }
+
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; font: 600 14px/1 var(--head); letter-spacing: .12em; text-transform: uppercase; border-radius: var(--radius); transition: background .2s, color .2s, transform .2s; }
+  .btn svg { width: 16px; height: 16px; transition: transform .2s; }
+  .btn:hover svg { transform: translateX(3px); }
+  .btn-red { background: var(--red); color: var(--white); }
+  .btn-red:hover { background: var(--red-dark); }
+  .btn-ghost { color: var(--white); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.45); }
+  .btn-ghost:hover { background: var(--white); color: var(--ink); }
+
+  /* top bar + header */
+  .topbar { background: var(--ink); color: #b2b2b2; font-size: 13px; }
+  .topbar .wrap { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; }
+  .topbar a:hover { color: var(--white); }
+  .topbar .contacts { display: flex; gap: 24px; flex-wrap: wrap; }
+  .header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--grey-200); }
+  .header .wrap { display: flex; align-items: center; justify-content: space-between; height: 78px; }
+  .logo img { height: 44px; width: auto; }
+  .nav { display: flex; align-items: center; gap: 34px; }
+  .nav a { font: 500 14px/1 var(--head); letter-spacing: .1em; text-transform: uppercase; color: var(--grey-900); position: relative; padding: 6px 0; }
+  .nav a:not(.btn)::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 2px; background: var(--red); transition: right .25s; }
+  .nav a:not(.btn):hover::after { right: 0; }
+  .nav .btn { padding: 12px 20px; color: var(--white); }
+  .burger { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
+  .burger span { display: block; width: 24px; height: 2px; background: var(--ink); margin: 5px 0; }
+
+  /* hero */
+  .hero { position: relative; background: var(--ink); color: var(--white); overflow: hidden; }
+  .hero-media { position: absolute; inset: 0; }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+  .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,20,20,.94) 0%, rgba(20,20,20,.82) 38%, rgba(20,20,20,.15) 75%, rgba(20,20,20,0) 100%); }
+  .hero .wrap { position: relative; display: grid; align-content: center; min-height: min(78vh, 720px); padding: 90px 0 130px; }
+  .hero-copy { max-width: 600px; }
+  .hero .eyebrow { color: #ff4a4c; }
+  .hero h1 { color: var(--white); font-size: clamp(40px, 6.2vw, 78px); font-weight: 800; text-transform: uppercase; margin: 22px 0 24px; }
+  .hero h1 span { color: var(--red); display: block; }
+  .hero p { font-size: 18px; color: #d6d6d6; max-width: 520px; font-weight: 300; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 38px; }
+  .hero-stamp { position: absolute; right: 0; bottom: 120px; width: 170px; opacity: .92; animation: spin 40s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .facts { position: relative; z-index: 2; margin-top: -64px; }
+  .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--white); border-radius: var(--radius); box-shadow: 0 24px 50px -24px rgba(0,0,0,.35); overflow: hidden; }
+  .fact { padding: 30px 32px; display: flex; gap: 18px; align-items: flex-start; }
+  .fact + .fact { border-left: 1px solid var(--grey-200); }
+  .fact-ico { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: #fbe9e9; color: var(--red); }
+  .fact-ico svg { width: 22px; height: 22px; }
+  .fact strong { display: block; font: 700 18px/1.2 var(--head); color: var(--ink); text-transform: uppercase; letter-spacing: .02em; margin-bottom: 4px; }
+  .fact span { font-size: 14px; color: var(--grey-500); line-height: 1.5; }
+
+  section { padding: 110px 0; }
+
+  /* offer */
+  .sec-head { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 80px; align-items: end; margin-bottom: 56px; }
+  .sec-head .h2 { margin-top: 16px; }
+  .sec-head p { max-width: 520px; }
+  .cuts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .cut { position: relative; background: var(--white); border-radius: var(--radius); padding: 34px 32px 30px; overflow: hidden; transition: transform .3s, box-shadow .3s; }
+  .cut:hover { transform: translateY(-6px); box-shadow: 0 30px 50px -30px rgba(0,0,0,.35); }
+  .cut-num { position: absolute; z-index: 1; top: 44px; right: 46px; font: 800 44px/1 var(--head); color: var(--grey-300); }
+  .cut-img { height: 240px; display: flex; align-items: center; justify-content: center; margin: 0 0 24px; padding: 20px; background: radial-gradient(circle at 50% 60%, #fff 0%, var(--grey-100) 70%); border-radius: var(--radius); }
+  .cut-img img { height: 200px; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 12px 16px rgba(0,0,0,.12)); transition: transform .4s; }
+  .cut:hover .cut-img img { transform: scale(1.05); }
+  .cut h3 { font-size: 24px; font-weight: 700; text-transform: uppercase; }
+  .cut p { font-size: 15px; margin: 10px 0 20px; }
+  .cut .link { display: inline-flex; align-items: center; gap: 8px; font: 600 13px/1 var(--head); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .cut .link svg { width: 14px; height: 14px; transition: transform .2s; }
+  .cut:hover .link svg { transform: translateX(4px); }
+  .cut::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--red); transition: width .35s; }
+  .cut:hover::after { width: 100%; }
+
+  /* processes */
+  .processes { background: var(--ink); padding-top: 0; padding-bottom: 0; }
+  .proc-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .proc { position: relative; min-height: 460px; display: flex; align-items: flex-end; overflow: hidden; color: var(--white); }
+  .proc img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+  .proc:hover img { transform: scale(1.06); }
+  .proc::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(20,20,20,0) 35%, rgba(20,20,20,.9) 100%); }
+  .proc-body { position: relative; z-index: 2; padding: 36px; }
+  .proc-tag { display: inline-block; font: 600 12px/1 var(--head); letter-spacing: .2em; text-transform: uppercase; padding: 7px 10px; background: var(--red); border-radius: 2px; }
+  .proc.frozen .proc-tag { background: var(--frost); color: var(--ink); }
+  .proc h3 { color: var(--white); font-size: 30px; font-weight: 700; text-transform: uppercase; margin: 14px 0 8px; }
+  .proc p { font-size: 15px; color: #cfcfcf; max-width: 320px; }
+
+  /* why us */
+  .why { display: grid; grid-template-columns: 1.05fr 1fr; gap: 80px; align-items: center; }
+  .why-media { position: relative; }
+  .why-media .main { border-radius: var(--radius); aspect-ratio: 4/5; object-fit: cover; width: 100%; }
+  .why-media .accent { position: absolute; right: -40px; bottom: -40px; width: 46%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); border: 8px solid var(--grey-100); }
+  .why-media .badge { position: absolute; left: -24px; top: 40px; background: var(--red); color: var(--white); padding: 22px 24px; border-radius: var(--radius); font-family: var(--head); max-width: 200px; box-shadow: 0 20px 40px -20px rgba(195,0,2,.6); }
+  .why-media .badge b { display: block; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; }
+  .why-media .badge span { font-size: 14px; opacity: .85; line-height: 1.4; display: block; margin-top: 6px; }
+  .why-copy .h2 { margin: 16px 0 24px; }
+  .why-copy > p + p { margin-top: 16px; }
+  .perks { list-style: none; padding: 0; margin: 34px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; }
+  .perks li { display: flex; align-items: center; gap: 12px; font: 500 15px/1.3 var(--head); color: var(--ink); text-transform: uppercase; letter-spacing: .03em; padding: 14px 16px; background: var(--white); border-radius: var(--radius); }
+  .perks svg { flex: none; width: 20px; height: 20px; color: var(--red); }
+
+  /* technology */
+  .tech { background: var(--white); }
+  .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .tech-card { border: 1px solid var(--grey-200); border-radius: var(--radius); padding: 34px 30px; transition: border-color .3s, box-shadow .3s; }
+  .tech-card:hover { border-color: transparent; box-shadow: 0 26px 50px -30px rgba(0,0,0,.3); }
+  .tech-card img { height: 120px; width: auto; margin-bottom: 26px; }
+  .tech-card .code { font: 800 13px/1 var(--head); letter-spacing: .2em; color: var(--red); }
+  .tech-card h3 { font-size: 22px; font-weight: 700; text-transform: uppercase; margin: 10px 0 12px; }
+  .tech-card p { font-size: 15px; }
+
+  /* cta */
+  .cta { position: relative; background: var(--ink); color: var(--white); overflow: hidden; padding: 96px 0; }
+  .cta::before { content: ""; position: absolute; inset: 0; background: url("assets/elitefood_116-682x1024.jpg") center 40% / cover; opacity: .22; }
+  .cta .wrap { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; }
+  .cta .h2 { color: var(--white); max-width: 720px; }
+  .cta p { color: #bdbdbd; margin-top: 14px; max-width: 600px; }
+
+  /* footer */
+  .footer { background: #141414; color: #9a9a9a; font-size: 14px; padding: 72px 0 0; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; padding-bottom: 56px; }
+  .footer .logo-box { background: var(--white); display: inline-block; padding: 12px 16px; border-radius: var(--radius); }
+  .footer .logo-box img { height: 36px; }
+  .footer h4 { margin: 0 0 18px; font: 600 13px/1 var(--head); letter-spacing: .2em; text-transform: uppercase; color: var(--white); }
+  .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .footer a:hover { color: var(--white); }
+  .footer .about { margin-top: 20px; max-width: 320px; line-height: 1.6; }
+  .footer-bottom { border-top: 1px solid #2a2a2a; padding: 20px 0; font-size: 13px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .hero-stamp { animation: none; } }
+
+  /* responsive */
+  @media (max-width: 1024px) {
+    .nav a:not(.btn) { display: none; }
+    .burger { display: block; }
+    .hero-stamp { width: 120px; bottom: 100px; }
+    .why { grid-template-columns: 1fr; gap: 70px; }
+    .why-media { max-width: 560px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 820px) {
+    section { padding: 80px 0; }
+    .sec-head { grid-template-columns: 1fr; }
+    .facts-grid, .cuts, .proc-grid, .tech-grid { grid-template-columns: 1fr; }
+    .fact + .fact { border-left: 0; border-top: 1px solid var(--grey-200); }
+    .proc { min-height: 340px; }
+    .hero-media::after { background: linear-gradient(180deg, rgba(20,20,20,.55) 0%, rgba(20,20,20,.9) 70%); }
+    .hero-stamp { display: none; }
+  }
+  @media (max-width: 560px) {
+    .topbar .hours { display: none; }
+    .nav .btn { display: none; }
+    .perks { grid-template-columns: 1fr; }
+    .why-media .accent { right: -8px; bottom: -30px; }
+    .why-media .badge { left: -8px; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="contacts">
+      <a href="tel:+48656141464">Tel./fax: +48 65 614 14 64</a>
+      <a href="mailto:sekretariat@elitefood.pl">sekretariat@elitefood.pl</a>
+    </div>
+    <span class="hours">ul. Wrocławska 160, 63-800 Gostyń</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="wrap">
+    <a href="#" class="logo"><img src="assets/Logo_www_Elite-Food.png" alt="EliteFood – discover the best meat"></a>
+    <nav class="nav">
+      <a href="#oferta">Oferta</a>
+      <a href="#procesy">Produkty</a>
+      <a href="#dlaczego-my">O firmie</a>
+      <a href="#technologia">Technologia</a>
+      <a href="#kontakt" class="btn btn-red">Kontakt</a>
+      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding:0">
+    <div class="hero-media"><img src="assets/elitefood_074.jpg" alt="Świeży kurczak w brytfannie z ziołami"></div>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Poultry meat processing</span>
+        <h1>We deliver tasty<span>&amp; healthy products</span></h1>
+        <p>Działamy w sektorze produktów spożywczych, specjalizując się w przetwórstwie surowego mięsa drobiowego i produkcji pieczonych elementów z mięsa drobiowego.</p>
+        <div class="hero-actions">
+          <a href="#oferta" class="btn btn-red">Poznaj ofertę <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#kontakt" class="btn btn-ghost">Zapytaj o współpracę</a>
+        </div>
+      </div>
+      <img class="hero-stamp" src="assets/Stempel_kurczak.png" alt="">
+    </div>
+  </section>
+
+  <div class="facts">
+    <div class="wrap">
+      <div class="facts-grid reveal">
+        <div class="fact">
+          <div class="fact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg></div>
+          <div><strong>3 procesy obróbki</strong><span>Mięso świeże, mrożone oraz pieczone</span></div>
+        </div>
+        <div class="fact">
+          <div class="fact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div><strong>Certyfikowani dostawcy</strong><span>Ciągłość dostaw w wymaganych ilościach</span></div>
+        </div>
+        <div class="fact">
+          <div class="fact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg></div>
+          <div><strong>VAC · MAP · IQF</strong><span>Nowoczesne pakowanie i zamrażanie</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="oferta">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Oferta</span>
+          <h2 class="h2">Filet, noga <em>i skrzydło</em></h2>
+        </div>
+        <p>Z myślą o potrzebach naszych Klientów przygotowaliśmy ofertę produktów z fileta, nogi i skrzydełka, obejmującą trzy procesy obróbki mięsa. Szczegóły dotyczące technologii, pakowania i gramatury znajdą Państwo w odpowiedniej kategorii.</p>
+      </div>
+      <div class="cuts">
+        <a href="#" class="cut reveal">
+          <span class="cut-num">01</span>
+          <div class="cut-img"><img src="assets/Produkty-z-kurczaka_filet.png" alt="Filet z kurczaka"></div>
+          <h3>Filet z kurczaka</h3>
+          <p>Filety podwójne i pojedyncze, z naskórkiem i bez, w różnych rodzajach pakowania. Również polędwiczka kalibrowana.</p>
+          <span class="link">Zobacz produkty <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#" class="cut reveal">
+          <span class="cut-num">02</span>
+          <div class="cut-img"><img src="assets/Produkty-z-kurczaka_noga.png" alt="Noga z kurczaka"></div>
+          <h3>Mięso z nogi</h3>
+          <p>Elementy z nogi kurczaka – świeże, mrożone lub pieczone, przygotowane pod potrzeby Twojej produkcji.</p>
+          <span class="link">Zobacz produkty <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#" class="cut reveal">
+          <span class="cut-num">03</span>
+          <div class="cut-img"><img src="assets/Produkty-z-kurczaka_skrzydlo.png" alt="Skrzydło z kurczaka"></div>
+          <h3>Skrzydło z kurczaka</h3>
+          <p>Skrzydełka w wersji świeżej, mrożonej IQF oraz pieczonej – gotowe do dalszej obróbki lub sprzedaży.</p>
+          <span class="link">Zobacz produkty <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="processes" id="procesy">
+    <div class="proc-grid">
+      <a href="#" class="proc">
+        <img src="assets/elitefood_007.jpg" alt="Świeże udka z kurczaka z rozmarynem">
+        <div class="proc-body"><span class="proc-tag">Świeże</span><h3>Mięso świeże</h3><p>Pakowane próżniowo (VAC) lub w atmosferze modyfikowanej (MAP).</p></div>
+      </a>
+      <a href="#" class="proc frozen">
+        <img src="assets/elitefood_023_ice-v.jpg" alt="Mrożone filety z kurczaka w lodzie">
+        <div class="proc-body"><span class="proc-tag">Mrożone</span><h3>Mięso mrożone</h3><p>Technologia IQF – szybkie zamrażanie każdej pojedynczej sztuki.</p></div>
+      </a>
+      <a href="#" class="proc">
+        <img src="assets/elitefood_064-scaled.jpg" alt="Przyprawiony kurczak z warzywami">
+        <div class="proc-body"><span class="proc-tag">Pieczone</span><h3>Mięso pieczone</h3><p>Smak, który ma się kojarzyć z domową recepturą tradycyjnych potraw.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <section id="dlaczego-my">
+    <div class="wrap why">
+      <div class="why-media reveal">
+        <img class="main" src="assets/elitefood_067.jpg" alt="Polędwiczki z kurczaka na tasaku">
+        <img class="accent" src="assets/01_skrzydelka-2b.jpg" alt="Skrzydełka z kurczaka na desce">
+        <div class="badge"><b>Produkt selektywny</b><span>Pełna gama wyrobów z piersi kurczaka</span></div>
+      </div>
+      <div class="why-copy reveal">
+        <span class="eyebrow">Dlaczego właśnie my</span>
+        <h2 class="h2">Jakość zaczyna się <em>u&nbsp;dostawcy</em></h2>
+        <p>Nasz proces produkcji rozpoczyna się od starannego wyboru solidnych, niezawodnych i certyfikowanych dostawców surowców. Dzięki dobrze rozwiniętej siatce dostawców możemy zagwarantować ciągłość dostaw w wymaganych ilościach i wysokiej jakości.</p>
+        <p>Oferujemy filety podwójne i pojedyncze, z naskórkiem i bez niego, w różnych rodzajach pakowania – w formie świeżej i mrożonej.</p>
+        <ul class="perks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5L20 7"/></svg>Najwyższej jakości mięso</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5L20 7"/></svg>Wysoka zawartość białka</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5L20 7"/></svg>Bez konserwantów</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5L20 7"/></svg>Produkt bezglutenowy</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5L20 7"/></svg>Praktyczne opakowanie</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5L20 7"/></svg>Bez GMO</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech" id="technologia">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Technologia</span>
+          <h2 class="h2">Świeżość <em>zamknięta</em> w opakowaniu</h2>
+        </div>
+        <p>Dobieramy metodę pakowania i zamrażania do produktu i kanału sprzedaży, tak aby mięso zachowało smak, strukturę i bezpieczeństwo.</p>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-card reveal">
+          <img src="assets/opakowanie-VAC-300x250.png" alt="">
+          <span class="code">VAC</span>
+          <h3>Pakowanie próżniowe</h3>
+          <p>Produkt trafia do hermetycznego opakowania foliowego o niskiej przepuszczalności, zostaje pozbawiony powietrza i szczelnie zamknięty.</p>
+        </div>
+        <div class="tech-card reveal">
+          <img src="assets/opakowanie-MAP-300x250.png" alt="">
+          <span class="code">MAP</span>
+          <h3>Atmosfera modyfikowana</h3>
+          <p>Powietrze w opakowaniu zastępowane jest odpowiednio dobraną mieszaniną gazów.</p>
+        </div>
+        <div class="tech-card reveal">
+          <img src="assets/opakowanie-IQF-300x250.png" alt="">
+          <span class="code">IQF</span>
+          <h3>Zamrażanie IQF</h3>
+          <p>Kilkuetapowe opryskiwanie produktu czynnikiem o niskiej temperaturze zapewnia szybkie zamrożenie każdej pojedynczej sztuki.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="kontakt">
+    <div class="wrap">
+      <div>
+        <h2 class="h2">Smak domowej receptury <em>w&nbsp;skali przemysłowej</em></h2>
+        <p>Porozmawiajmy o asortymencie, gramaturach i pakowaniu dopasowanym do Twojej firmy.</p>
+      </div>
+      <div class="hero-actions" style="margin:0">
+        <a href="mailto:sekretariat@elitefood.pl" class="btn btn-red">Napisz do nas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="tel:+48656141464" class="btn btn-ghost">+48 65 614 14 64</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <span class="logo-box"><img src="assets/Logo_www_Elite-Food.png" alt="EliteFood"></span>
+        <p class="about">Specjalizujemy się w przetwórstwie mięsa drobiowego i produkcji pieczonych elementów, tworząc smak kojarzący się z domową recepturą tradycyjnych potraw.</p>
+      </div>
+      <div>
+        <h4>Linki</h4>
+        <ul><li><a href="#">O firmie</a></li><li><a href="#">OWS</a></li><li><a href="#">PROW</a></li><li><a href="#kontakt">Kontakt</a></li></ul>
+      </div>
+      <div>
+        <h4>Produkty</h4>
+        <ul><li><a href="#">Mięso świeże</a></li><li><a href="#">Mięso mrożone</a></li><li><a href="#">Mięso pieczone</a></li><li><a href="#">Polędwiczka kalibrowana</a></li><li><a href="#">Mięso z nogi kurczaka</a></li><li><a href="#">Skrzydło z kurczaka</a></li></ul>
+      </div>
+      <div>
+        <h4>Siedziba firmy</h4>
+        <ul><li>ul. Wrocławska 160<br>63-800 Gostyń</li><li><a href="tel:+48656141464">+48 65 614 14 64</a></li><li><a href="mailto:sekretariat@elitefood.pl">sekretariat@elitefood.pl</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© EliteFood. Wszelkie prawa zastrzeżone.</span><a href="#">Polityka prywatności</a></div>
+  </div>
+</footer>
+
+<script>
+  let pending = [...document.querySelectorAll('.reveal')];
+  const reveal = () => {
+    const limit = innerHeight * 0.92;
+    pending = pending.filter(el => el.getBoundingClientRect().top < limit ? (el.classList.add('in'), false) : true);
+    if (!pending.length) removeEventListener('scroll', reveal);
+  };
+  addEventListener('scroll', reveal, { passive: true });
+  addEventListener('resize', reveal);
+  reveal();
+</script>
+</body>
+</html>
