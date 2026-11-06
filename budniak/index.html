@@ -58,7 +58,8 @@
   .topbar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 8px 0; }
   .topbar .items { display: flex; gap: 24px; flex-wrap: wrap; }
   .topbar a:hover { color: var(--white); }
-  .topbar svg { width: 15px; height: 15px; vertical-align: -2px; margin-right: 6px; }
+  .topbar a { display: inline-flex; align-items: center; white-space: nowrap; }
+  .topbar svg { width: 15px; height: 15px; flex: none; margin-right: 6px; }
 
   /* header */
   .header { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
@@ -73,24 +74,24 @@
   .nav .btn { padding: 12px 20px; font-size: 14px; }
 
   /* hero */
-  .hero { position: relative; overflow: hidden; padding: 64px 0 0; background: linear-gradient(160deg, #fbfbfd 0%, #eceef3 60%, #e2e5ec 100%); }
+  .hero { position: relative; overflow: hidden; padding: 40px 0 0; background: linear-gradient(160deg, #fbfbfd 0%, #eceef3 60%, #e2e5ec 100%); }
   .hero::before { content: ""; position: absolute; inset: 0; background:
       radial-gradient(1100px 500px at 85% 30%, rgba(74,134,232,.16), transparent 60%),
       repeating-radial-gradient(circle at 110% 120%, transparent 0 38px, rgba(36,47,93,.035) 38px 39px); }
-  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: end; }
-  .hero-copy { padding-bottom: 96px; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: end; }
+  .hero-copy { padding-bottom: 56px; }
   .pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 10px; background: var(--white); border-radius: 999px; font: 600 13px/1 var(--head); color: var(--navy); box-shadow: 0 6px 18px -10px rgba(36,47,93,.4); }
   .pill i { width: 8px; height: 8px; border-radius: 50%; background: #2fb36d; box-shadow: 0 0 0 4px rgba(47,179,109,.18); }
-  .hero h1 { font-size: clamp(38px, 5.4vw, 64px); font-weight: 800; margin: 24px 0 22px; color: var(--navy); }
+  .hero h1 { font-size: clamp(36px, 4.3vw, 56px); font-weight: 800; margin: 18px 0 18px; color: var(--navy); }
   .hero h1 em { font-style: normal; color: var(--blue); }
   .hero .lead { color: var(--text); font-size: 19px; max-width: 520px; }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 36px; }
-  .knf { display: flex; align-items: center; gap: 12px; margin-top: 40px; font-size: 14px; color: var(--muted); }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+  .knf { display: flex; align-items: center; gap: 12px; margin-top: 28px; font-size: 14px; color: var(--muted); }
   .knf svg { width: 34px; height: 34px; color: var(--navy); flex: none; }
   .knf b { color: var(--ink); }
   .hero-visual { position: relative; align-self: end; display: flex; justify-content: center; }
   .hero-visual .disc { position: absolute; bottom: 0; left: 50%; width: 88%; aspect-ratio: 1; transform: translate(-50%, 18%); border-radius: 50%; background: radial-gradient(circle at 40% 35%, #34437f, var(--navy) 60%, var(--navy-2)); }
-  .hero-visual img { position: relative; width: min(440px, 100%); height: auto; }
+  .hero-visual img { position: relative; width: min(460px, 100%); height: auto; margin-bottom: -18px; /* the cutout has a transparent strip and halo at the bottom */ }
   .float { position: absolute; z-index: 2; background: var(--white); border-radius: 12px; padding: 14px 18px; box-shadow: 0 18px 40px -18px rgba(26,35,71,.45); display: flex; gap: 12px; align-items: center; font-size: 14px; line-height: 1.35; color: var(--muted); }
   .float strong { display: block; font: 800 20px/1.1 var(--head); color: var(--navy); }
   .float .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: #e9f0fd; color: var(--blue); flex: none; }
@@ -201,7 +202,7 @@
   @media (max-width: 860px) {
     section { padding: 80px 0; }
     .hero .wrap { grid-template-columns: 1fr; }
-    .hero-copy { padding-bottom: 20px; }
+    .hero-copy { padding-bottom: 8px; }
     .hero-visual { max-width: 420px; margin: 0 auto; }
     .why-grid, .about { grid-template-columns: 1fr; }
     .about { gap: 56px; }
@@ -209,9 +210,21 @@
     .cta-box { padding: 44px 28px; }
   }
   @media (max-width: 600px) {
-    .topbar .hours { display: none; }
+    /* phone and e-mail take turns in one slot */
+    .topbar .hours, .topbar .fb-label { display: none; }
+    .topbar .contacts { display: grid; flex: 1; }
+    .topbar .contacts a { grid-area: 1 / 1; animation: swap 8s infinite both; }
+    .topbar .contacts .email { animation-delay: -4s; }
+    .topbar .wrap { flex-wrap: nowrap; }
+    .topbar .items { flex-wrap: nowrap; gap: 16px; min-width: 0; }
+    .topbar .items a[aria-label] svg { width: 17px; height: 17px; margin: 0; }
     .brand span { display: none; }
     .nav .btn span { display: none; }
+    .hero { padding-top: 28px; }
+    .hero h1 { font-size: 33px; margin: 16px 0 14px; }
+    .hero .lead { font-size: 17px; }
+    .hero-actions .btn { flex: 1 1 100%; }
+    .knf { margin-top: 22px; }
     .nav .btn { padding: 12px; }
     .services-grid, .steps, .contact-grid, .facts { grid-template-columns: 1fr; }
     .panel { padding: 30px 24px; }
@@ -222,19 +235,28 @@
     .float .ico { display: none; }
     .about-photo .tag { left: 12px; }
   }
+  @keyframes swap {
+    0%, 45% { opacity: 1; transform: none; visibility: visible; }
+    50%, 95% { opacity: 0; transform: translateY(-8px); visibility: hidden; }
+    100% { opacity: 1; transform: none; visibility: visible; }
+  }
+  @media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+    .topbar .contacts a { animation: none; }
+    .topbar .contacts .email { visibility: hidden; }
+  }
 </style>
 </head>
 <body>
 
 <div class="topbar">
   <div class="wrap">
-    <div class="items">
-      <a href="tel:+48606647920"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>+48 606 647 920</a>
-      <a href="mailto:wieslaw.budniak@expander-plus.pl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>wieslaw.budniak@expander-plus.pl</a>
+    <div class="items contacts">
+      <a href="tel:+48606647920" class="phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>+48 606 647 920</a>
+      <a href="mailto:wieslaw.budniak@expander-plus.pl" class="email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>wieslaw.budniak@expander-plus.pl</a>
     </div>
     <div class="items">
       <span class="hours">Pon–Pt 9:00–18:00</span>
-      <a href="https://www.facebook.com/budniakcom" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z"/></svg>Facebook</a>
+      <a href="https://www.facebook.com/budniakcom" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z"/></svg><span class="fb-label">Facebook</span></a>
     </div>
   </div>
 </div>
