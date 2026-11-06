@@ -1,0 +1,11 @@
+spec:
+  name: landings
+  static_sites:
+    - name: landings
+      environment_slug: html
+      git:
+        repo_clone_url: https://github.com/raburabur/landings.git
+        branch: main
+      source_dir: /
+      index_document: index.html
+      error_document: 404.html
